@@ -1,4 +1,5 @@
-import './App.css';
+import './App.scss';
+import Card from "./Card.jsx";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         >
           Learn React
         </a>
+        <Card />
       </header>
     </div>
   );
