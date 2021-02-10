@@ -1,5 +1,5 @@
 import './App.scss';
-import Card from "./Card.jsx";
+import CardList from './Components/CardList';
 
 function App() {
   return (
@@ -10,13 +10,13 @@ function App() {
         </p>
         <a
           className="App-link"
-          href=""
+          href="#"
           target="_blank"
           rel="noopener noreferrer"
         >
           Learn React
         </a>
-        <Card />
+        <CardList />
       </header>
     </div>
   );
