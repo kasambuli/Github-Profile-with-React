@@ -13,6 +13,6 @@ const Card = ({ profile }) => {
     );
 }
 Card.propTypes = {
-    profile: PropTypes.string.isRequired,
+    profile: PropTypes.object.isRequired,
 };
 export default Card;

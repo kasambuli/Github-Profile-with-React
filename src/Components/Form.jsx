@@ -1,22 +1,17 @@
-const axios = require('axios');
-import { useState } from 'react';
-const Form = () => {
-    const [userName, setUserName] = useState(" ")
+import PropTypes from "prop-types";
+const Form = ({ handleSubmit, setUserName }) => {
     //every React event receives an event argument
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        console.log(userName)
-        const res = await axios.get(`https://api.github.com/users/${userName}`)
-        this.props.onSubmit(res.data)
-    }
     return (
-        <form onSubmit={handleSubmit}>
+        <form>
             <input type="text" placeholder="Enter GitHub Username"
-                value={userName}
-                onChange={(event) => setUserName({ userName: event.target.value })} required />
-            <button>Add Card</button>
+                name="userName"
+                onChange={event => setUserName(event.target.value)} required />
+            <button onClick={handleSubmit}>Add Card</button>
         </form>
     )
 }
-
+Form.propTypes = {
+    handleSubmit: PropTypes.func.isRequired,
+    setUserName: PropTypes.func.isRequired,
+};
 export default Form;

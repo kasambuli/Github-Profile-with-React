@@ -4,12 +4,12 @@ import PropTypes from "prop-types";
 const CardList = ({ profiles }) => {
     return (
         <>
-            {profiles.testData.map(profile => <Card key={profile.id} profile={profile} />)}
+            {profiles.map(profile => <Card key={profile.name} profile={profile} />)}
         </>
     )
 }
 
 CardList.propTypes = {
-    profiles: PropTypes.object.isRequired,
+    profiles: PropTypes.array.isRequired,
 };
 export default CardList;
