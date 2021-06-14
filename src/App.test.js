@@ -1,5 +1,4 @@
 import { render, screen, fireEvent, act, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event'
 import App from './App';
 
 //Search for a GitHub user profile
