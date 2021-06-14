@@ -1,9 +1,12 @@
-import { render, screen, fireEvent, act } from '@testing-library/react';
+import { render, screen, fireEvent, act, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event'
 import App from './App';
 
 //Search for a GitHub user profile
 // Auser can search, view a user profile
+beforeAll(() => {
+  jest.spyOn(window, "fetch")
+})
 
 it("should display correctly", () => {
   render(<App />)
@@ -17,7 +20,7 @@ it("should display correctly", () => {
 
 it("should search correctly", async () => {
   render(<App />)
-  jest.spyOn(window, "fetch")
+
   window.fetch.mockResolvedValueOnce({
     ok: true,
     json: async () => ({ name: "Dan Abramov", avatar_url: "https://avatars0.githubusercontent.com/u/810438?v=4", company: "@facebook" }),
@@ -25,16 +28,16 @@ it("should search correctly", async () => {
 
   const inputElement = screen.getByPlaceholderText(/Enter GitHub Username/i)
   const buttonElement = screen.getByText(/Add Card/)
-  console.log(buttonElement)
-  act(() => {
-    fireEvent.change(inputElement, { target: { value: "Dan Abramov" } })
-    userEvent.click(buttonElement)
-  })
+  fireEvent.change(inputElement, { target: { value: "Dan Abramov" } })
+  fireEvent.click(buttonElement)
 
-  // const cardElements = document.getElementsByClassName("github-profile")
-  // const finalCardElement = cardElements[cardElements.length - 1]
-  // const usernameElement = finalCardElement.getElementsByClassName("name")
-  // expect(usernameElement).toHaveTextContent("Dan Abramov")
-  expect(window.fetch).toHaveBeenCalledTimes(1)
-  expect(inputElement.value).toBe("Dan Abramov")
+  await waitFor(() => {
+    const cardElements = document.getElementsByClassName("github-profile")
+    const finalCardElement = cardElements[cardElements.length - 1]
+    const usernameElement = finalCardElement.querySelector(".name")
+
+    expect(window.fetch).toHaveBeenCalledTimes(1)
+    expect(inputElement.value).toBe("Dan Abramov")
+    expect(usernameElement).toHaveTextContent("Dan Abramov")
+  })
 })
