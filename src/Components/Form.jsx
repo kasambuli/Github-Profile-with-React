@@ -1,26 +1,27 @@
-import React, { Component } from "react";
-const axios = require('axios');
-class Form extends Component {
-    state = {
-        userName: ''
-    }
+import PropTypes from "prop-types";
+import debounce from 'lodash.debounce';
+import { useCallback } from 'react';
+
+const Form = ({ handleSubmit, setUserName }) => {
     //every React event receives an event argument
-    handleSubmit = async (event) => {
-        event.preventDefault();
-        const res = await axios.get(`https://api.github.com/users/${this.state.userName}`)
-        this.props.onSubmit(res.data)
-        this.setState({ userName: "" })
+    const changeHandler = event => {
+        setUserName(event.target.value)
     }
-    render() {
-        return (
-            <form onSubmit={this.handleSubmit}>
-                <input type="text" placeholder="Enter GitHub Username"
-                    value={this.state.userName}
-                    onChange={event => this.setState({ userName: event.target.value })} required />
-                <button>Add Card</button>
-            </form>
-        )
-        //ref attribute used to get a reference to the element. Fancy ID that react keeps in memory and assocites with every rendered element. To use ref, we need to instatiate an object
-    }
+    const debouncedChangeHandler = useCallback(
+        debounce(changeHandler, 300)
+        , []);
+
+    return (
+        <form>
+            <input type="text" placeholder="Enter GitHub Username"
+                name="userName"
+                onChange={debouncedChangeHandler} required />
+            <button onClick={handleSubmit}>Add Card</button>
+        </form>
+    )
 }
+Form.propTypes = {
+    handleSubmit: PropTypes.func.isRequired,
+    setUserName: PropTypes.func.isRequired,
+};
 export default Form;

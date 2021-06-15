@@ -1,11 +1,15 @@
 import Card from "./Card";
+import PropTypes from "prop-types";
 
-const CardList = (props) => (
+const CardList = ({ profiles }) => {
+    return (
+        <>
+            {profiles.map(profile => <Card key={profile.name} profile={profile} />)}
+        </>
+    )
+}
 
-    <div>
-        {props.profiles.map(profile => <Card key={profile.id} {...profile} />)}
-    </div>
-
-)
-// it's returning [<Card/>,<Card/>,<Card/>] - creating a new react Card elemnt withe very iteration.
+CardList.propTypes = {
+    profiles: PropTypes.array.isRequired,
+};
 export default CardList;

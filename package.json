@@ -1,40 +1,74 @@
 {
-  "name": "github-profile",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@testing-library/jest-dom": "^5.11.9",
-    "@testing-library/react": "^11.2.3",
-    "@testing-library/user-event": "^12.6.2",
-    "axios": "^0.21.1",
-    "node-sass": "^4.14.1",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
-    "react-scripts": "4.0.1",
-    "web-vitals": "^0.2.4"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  }
+    "name": "github-profile",
+    "version": "0.1.0",
+    "private": true,
+    "dependencies": {
+        "@testing-library/jest-dom": "^5.11.9",
+        "@testing-library/react": "^11.2.3",
+        "@testing-library/user-event": "^12.6.2",
+        "axios": "^0.21.1",
+        "lodash.debounce": "^4.0.8",
+        "node-sass": "^4.14.1",
+        "react": "^17.0.1",
+        "react-dom": "^17.0.1",
+        "react-scripts": "4.0.1",
+        "web-vitals": "^0.2.4"
+    },
+    "scripts": {
+        "start": "react-scripts start",
+        "build": "react-scripts build",
+        "test": "react-scripts test --coverage --watchAll",
+        "eject": "react-scripts eject",
+        "lint": "eslint .",
+        "format": "prettier --write \"**/*.+(js|jsx|json|yml|yaml|css|md|vue)\""
+    },
+    "eslintConfig": {
+        "extends": [
+            "react-app",
+            "react-app/jest"
+        ]
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    },
+    "devDependencies": {
+        "eslint": "^7.28.0",
+        "eslint-plugin-react": "^7.24.0",
+        "husky": "^6.0.0",
+        "prettier": "^2.3.1"
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "npm run lint && npm run format"
+        }
+    },
+    "jest": {
+        "collectCoverageFrom": [
+            "src/**/*.jsx",
+            "!src/index.jsx",
+            "!src/hooks/*.js",
+            "!src/context/*.js"
+        ],
+        "coverageThreshold": {
+            "global": {
+                "branches": 85,
+                "functions": 85,
+                "lines": 85,
+                "statements": 85
+            }
+        },
+        "coverageReporters": [
+            "html",
+            "text"
+        ]
+    }
 }
